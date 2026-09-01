@@ -72,6 +72,40 @@ public class Bank {
     }
 
     public void transfer(){
-        
+        for (Customer customer : customers) {
+            if (customer.getAccountNumber() == accountnumber) {
+                System.out.println("Enter PIN for customer: " + customer.getName());
+                int enteredPIN = scanner.nextInt();
+                while(true){
+                    try{
+                        while (enteredPIN != customer.getPin()) {
+                            System.out.println("Incorrect PIN. Please try again.");
+                            enteredPIN = scanner.nextInt();
+                        }   
+                        System.out.println("Enter amount to transfer: ");
+                        double transfer = scanner.nextDouble();
+                        customer.setAccountBalance(customer.getAccountBalance() - transfer);
+                        //second customer to transfer to
+                        System.out.println("Enter account number of recipient: ");
+                        int recipientAccountNumber = scanner.nextInt();
+                        for (Customer recipient : customers) {
+                            if (recipient.getAccountNumber() == recipientAccountNumber) { // Ensure recipient exists
+                                recipient.setAccountBalance(recipient.getAccountBalance() + transfer);
+                                System.out.println("Transfer successful from " + customer.getName() + " to " + recipient.getName());
+                                System.out.println(customer.getName() + "'s new Account Balance: " + customer.getAccountBalance());
+                                System.out.println(recipient.getName() + "'s new Account Balance: " + recipient.getAccountBalance());
+                                return;
+                            }else {
+                                System.out.println("Recipient account number not found. Please try again.");
+                            }
+                        }
+                    }
+                    catch (Exception e) {//Catch exception if pin is invalid
+                    System.out.println("Invalid input. Please enter Numerical input only.");
+                    scanner.nextLine(); // Clear the invalid input
+                    }
+                }
+            }
+        }
     }
 }
