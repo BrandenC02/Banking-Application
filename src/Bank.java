@@ -89,12 +89,15 @@ public class Bank {
                         System.out.println("Enter account number of recipient: ");
                         int recipientAccountNumber = scanner.nextInt();
                         for (Customer recipient : customers) {
-                            if (recipient.getAccountNumber() == recipientAccountNumber) { // Ensure recipient exists
+                            if (recipient.getAccountNumber() == recipientAccountNumber) { //Find the recipient customer by account number
                                 recipient.setAccountBalance(recipient.getAccountBalance() + transfer);
                                 System.out.println("Transfer successful from " + customer.getName() + " to " + recipient.getName());
                                 System.out.println(customer.getName() + "'s new Account Balance: " + customer.getAccountBalance());
                                 System.out.println(recipient.getName() + "'s new Account Balance: " + recipient.getAccountBalance());
                                 return;
+                            }
+                            else if(customers.indexOf(recipient) == -1){
+                                System.out.println("Recipient account number not found. Please try again.");
                             }
                         }
                     }
