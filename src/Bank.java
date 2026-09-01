@@ -20,7 +20,7 @@ public class Bank {
             if (customer.getAccountNumber() == acctnumber) {
                 while (true) {
                 try{//If pin is invalid, catch the exception and prompt the user to enter a valid pin
-                System.out.println("Enter PIN for customer: " + customer.getName());
+                System.out.println("Enter PIN for customer: " + customer.getName());//Ask for pin in every transaction to ensure security
                 int enteredPIN = scanner.nextInt();
                 while (enteredPIN != customer.getPin()) {
                     System.out.println("Incorrect PIN. Please try again.");
@@ -48,7 +48,7 @@ public class Bank {
             if (customer.getAccountNumber() == acctnumber) {
                 while (true) {
                 try{//If pin is invalid, catch the exception and prompt the user to enter a valid pin
-                System.out.println("Enter PIN for customer: " + customer.getName());
+                System.out.println("Enter PIN for customer: " + customer.getName());//Ask for pin in every transaction to ensure security
                 int enteredPIN = scanner.nextInt();
                 while (enteredPIN != customer.getPin()) {
                     System.out.println("Incorrect PIN. Please try again.");
@@ -71,10 +71,10 @@ public class Bank {
         }
     }
 
-    public void transfer(){
+    public void transfer(int accountnumber) {
         for (Customer customer : customers) {
             if (customer.getAccountNumber() == accountnumber) {
-                System.out.println("Enter PIN for customer: " + customer.getName());
+                System.out.println("Enter PIN for customer: " + customer.getName());//Ask for pin in every transaction to ensure security
                 int enteredPIN = scanner.nextInt();
                 while(true){
                     try{
@@ -95,8 +95,6 @@ public class Bank {
                                 System.out.println(customer.getName() + "'s new Account Balance: " + customer.getAccountBalance());
                                 System.out.println(recipient.getName() + "'s new Account Balance: " + recipient.getAccountBalance());
                                 return;
-                            }else {
-                                System.out.println("Recipient account number not found. Please try again.");
                             }
                         }
                     }
@@ -108,4 +106,30 @@ public class Bank {
             }
         }
     }
+
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public void viewcustomerList() {
+        System.out.println("List of Customers:");
+        for (Customer customer : customers) {
+            customer.getCustomerInfo();
+            System.out.println("--------------------");
+        }
+    }
+
+    public void viewCustomerInfo(int acctnumber) {
+        for (Customer customer : customers) {
+            if (customer.getAccountNumber() == acctnumber) {
+                System.out.println("Customer Information:");
+                customer.getCustomerInfo();
+                return;
+            }
+        }
+        System.out.println("Customer with account number " + acctnumber + " not found.");
+    }
+
+
 }
